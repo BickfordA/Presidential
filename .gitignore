@@ -1,0 +1,8 @@
+#untracked folders
+/presidential/flask
+
+#vagrant files
+/.vagrant
+
+#ignore compiled python files
+*.pyc
