@@ -13,6 +13,7 @@ virtualenv flask
 
 echo "installing libs"
 
+echo 
 flask/bin/pip install flask
 flask/bin/pip install flask-login
 flask/bin/pip install flask-openid
@@ -26,5 +27,3 @@ flask/bin/pip install guess_language
 flask/bin/pip install flipflop
 flask/bin/pip install coverage
 
-echo "changing run permissions on run.py"
-chmod a+x run.py
