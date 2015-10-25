@@ -1,5 +1,7 @@
 #untracked folders
 /presidential/flask
+/data
+
 
 #vagrant files
 /.vagrant
