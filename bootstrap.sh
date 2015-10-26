@@ -10,6 +10,7 @@ cd /vagrant/presidential/
 
 echo "creating virtual env"
 virtualenv flask
+. flask/bin/activate
 
 echo "installing mySQL"
 #http://www.thisprogrammingthing.com/2013/getting-started-with-vagrant/
@@ -55,3 +56,4 @@ flask/bin/pip install flask-babel
 flask/bin/pip install guess_language
 flask/bin/pip install flipflop
 flask/bin/pip install coverage
+flask/bin/pip install watchdog
