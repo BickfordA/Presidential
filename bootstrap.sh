@@ -33,17 +33,28 @@ sudo apt-get -y install mysql-server
 #GRANT ALL PRIVILEGES ON * . * TO 'root'@'%';
 #FLUSH PRIVILEGES;
 #CREATE DATABASE presidential_db;"
-echo "DROP DATABASE IF EXISTS presdb" | mysql -uroot -proot
-echo "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root'" | mysql -uroot -proot
-echo "CREATE DATABASE presdb" | mysql -uroot -proot
-echo "GRANT ALL ON presdb.* TO 'root'@'localhost'" | mysql -uroot -proot
-echo "FLUSH PRIVILEGES" | mysql -uroot -proot
 
+#echo "DROP DATABASE IF EXISTS presdb" | mysql -uroot -proot
+#echo "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root'" | mysql -uroot -proot
+if [ ! -f /var/log/databasesetup ];
+then
+  echo "CREATE DATABASE presdb" | mysql -uroot -proot
+  echo "GRANT ALL ON presdb.* TO 'root'@'localhost'" | mysql -uroot -proot
+  echo "GRANT ALL ON presdb.* TO 'root'@'%'" | mysql -uroot -proot
+  echo "FLUSH PRIVILEGES" | mysql -uroot -proot
+
+  touch /var/log/databasesetup
+
+  if [ -f /vagrant/data/initial.sql ];
+  then
+      mysql -uroot -proot presdb < /vagrant/data/initial.sql
+  fi
+fi
 
 # change bind address to allow connections from anywhere
 sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 
- 
+
 echo "restarting mySQL"
 
 sudo service mysql restart
