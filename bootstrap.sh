@@ -26,17 +26,24 @@ sudo apt-get -y install mysql-server
 
 # http://stackoverflow.com/questions/24855942/vagrant-ssh-setting-up-and-connecting-to-mysql
 # fill in the blanks for root password, db name, username (local), and password
-mysql -u root -p"vagrant" -e "CREATE DATABASE presidential_db;
-CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';
-CREATE USER 'root'@'%' IDENTIFIED BY 'root';
-GRANT ALL PRIVILEGES ON * . * TO 'root'@'localhost';
-GRANT ALL PRIVILEGES ON * . * TO 'root'@'%';
-FLUSH PRIVILEGES;"
+#mysql -uroot -proot -e "
+#CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';
+#CREATE USER 'root'@'%' IDENTIFIED BY 'root';
+#GRANT ALL PRIVILEGES ON * . * TO 'root'@'localhost';
+#GRANT ALL PRIVILEGES ON * . * TO 'root'@'%';
+#FLUSH PRIVILEGES;
+#CREATE DATABASE presidential_db;"
+echo "DROP DATABASE IF EXISTS presdb" | mysql -uroot -proot
+echo "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root'" | mysql -uroot -proot
+echo "CREATE DATABASE presdb" | mysql -uroot -proot
+echo "GRANT ALL ON presdb.* TO 'root'@'localhost'" | mysql -uroot -proot
+echo "FLUSH PRIVILEGES" | mysql -uroot -proot
+
 
 # change bind address to allow connections from anywhere
 sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 
-
+ 
 echo "restarting mySQL"
 
 sudo service mysql restart
