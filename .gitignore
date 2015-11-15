@@ -7,3 +7,9 @@
 
 #ignore compiled python files
 *.pyc
+
+data/initial.sql
+data/
+
+curated_data/
+*.sql
