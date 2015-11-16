@@ -43,7 +43,7 @@ then
   echo "GRANT ALL ON PRESIDENTIAL.* TO 'root'@'%'" | mysql -uroot -proot
   echo "FLUSH PRIVILEGES" | mysql -uroot -proot
 
-  touch /var/log/databasesetup
+  touch /var/log/presidentialsetup
 
   if [ -f /vagrant/data/PRESIDENTIAL.sql ];
   then

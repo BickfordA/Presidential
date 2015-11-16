@@ -8,5 +8,6 @@
 #ignore compiled python files
 *.pyc
 
-
+/data
 curated_data/
+data/PRESIDENTIAL.sql
