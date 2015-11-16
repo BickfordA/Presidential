@@ -36,18 +36,18 @@ sudo apt-get -y install mysql-server
 
 #echo "DROP DATABASE IF EXISTS presdb" | mysql -uroot -proot
 #echo "CREATE USER 'root'@'localhost' IDENTIFIED BY 'root'" | mysql -uroot -proot
-if [ ! -f /var/log/databasesetup ];
+if [ ! -f /var/log/presidentialsetup ];
 then
-  echo "CREATE DATABASE presdb" | mysql -uroot -proot
-  echo "GRANT ALL ON presdb.* TO 'root'@'localhost'" | mysql -uroot -proot
-  echo "GRANT ALL ON presdb.* TO 'root'@'%'" | mysql -uroot -proot
+  echo "CREATE DATABASE PRESIDENTIAL" | mysql -uroot -proot
+  echo "GRANT ALL ON PRESIDENTIAL.* TO 'root'@'localhost'" | mysql -uroot -proot
+  echo "GRANT ALL ON PRESIDENTIAL.* TO 'root'@'%'" | mysql -uroot -proot
   echo "FLUSH PRIVILEGES" | mysql -uroot -proot
 
   touch /var/log/databasesetup
 
-  if [ -f /vagrant/data/initial.sql ];
+  if [ -f /vagrant/data/PRESIDENTIAL.sql ];
   then
-      mysql -uroot -proot presdb < /vagrant/data/initial.sql
+      mysql -uroot -proot PRESIDENTIAL < /vagrant/data/PRESIDENTIAL.sql
   fi
 fi
 

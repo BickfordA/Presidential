@@ -1,1 +1,1 @@
-mysqldump -u root -proot presdb > /vagrant/data/initial.sql
+mysqldump -u root -proot PRESIDENTIAL > /vagrant/data/initial.sql
