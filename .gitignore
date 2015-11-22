@@ -7,7 +7,11 @@
 
 #ignore compiled python files
 *.pyc
+*.csv
+*.sql
 
 /data
 curated_data/
+data/PRESIDENTIAL.sql
+
 data/PRESIDENTIAL.sql

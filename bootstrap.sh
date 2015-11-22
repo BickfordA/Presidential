@@ -75,3 +75,5 @@ flask/bin/pip install guess_language
 flask/bin/pip install flipflop
 flask/bin/pip install coverage
 flask/bin/pip install watchdog
+flask/bin/pip install mysql-python
+flask/bin/pip install pymysql

@@ -15,10 +15,11 @@ from urllib import unquote
 # See https://dev.twitter.com/docs/auth/oauth for more information
 # on Twitter's OAuth implementation.
 
-CONSUMER_KEY = ''
-CONSUMER_SECRET =''
-OAUTH_TOKEN = ''
-OAUTH_TOKEN_SECRET = ''
+
+CONSUMER_KEY = 'Zhcv44JIjKxrlYizLYPdBoqZH'
+CONSUMER_SECRET ='yaHAd63yirgKcjI74hLEqpF50AXrc7e9nOhmgRhU4fNDHHjuyW'
+OAUTH_TOKEN = '3578113992-NYWS6cfhSFF1HpODS3EaMNRegy4XwRosWFQ3Lg2'
+OAUTH_TOKEN_SECRET = 'vnMJOd7j8haxqFTWfGi0zTcMD6yyiIZfyNNxvZHja3kMx'
 
 
 auth = twitter.oauth.OAuth(OAUTH_TOKEN, OAUTH_TOKEN_SECRET,
@@ -48,9 +49,10 @@ def sqlDate(twitter_date):
     if len(date_parts) != 6:
         return ""
     outdate = []
+    outdate.append( date_parts[5])
     outdate.append( month(date_parts[1]))
     outdate.append( date_parts[2])
-    outdate.append( date_parts[5])
+
 
     outstring = ""
     outstring = '-'.join(outdate)
@@ -79,6 +81,8 @@ for line in term_file:
         #read the results from the status
         text =  status['text'].rstrip()
         text = text.replace('"', "'")
+        text = text.replace('\n', ' ')
+        text = text.replace('\t', ' ')
         text = "\"" + text +"\"";
 
         for user_mention in status['entities']['user_mentions']:
