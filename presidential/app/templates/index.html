@@ -7,9 +7,9 @@
     {% endif %}
   </head>
   <body>
-    <h1>Hi, {{ user.nickname }}!</h1>
+    <h1>Hi, {{ canidates[1][0] }}!</h1>
     {% for post in posts %}
-    <div><p>{{ post.author.nickname }} says: <b>{{ post.body }}</b></p></div>
+    <div><p>{{ canidates[1][1] }} says: <b>{{ canidates[1][2] }}</b></p></div>
     {% endfor %}
   </body>
 </html>

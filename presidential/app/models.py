@@ -13,10 +13,13 @@ db.Model.metadata.reflect(db.engine)
 
 #http://docs.sqlalchemy.org/en/latest/core/reflection.html
 
-Canidate = Table('CANDIDATE', db.Model.metadata, autoload = True, autoload_with = db.engine)
+#Canidate = Table('CANDIDATE', db.Model.metadata, autoload = True, autoload_with = db.engine)
 
-#class Candiate(db.Model):
-#    __table__ = db.Model.metadata.tables['CANDIDATE']
+class Candidate(db.Model):
+    #__table__ = db.Model.metadata.tables['CANDIDATE']
+    __table__ = Table('CANDIDATE', db.Model.metadata, autoload = True, autoload_with = db.engine)
+
+
 
 #class Foo(Base):
 #    __table__ = Base.metadata.tables['foos']

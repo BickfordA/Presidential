@@ -1,8 +1,10 @@
 from flask import render_template
 from app import app
 from app import db
-from sqlalchemy import create_engine, MetaData, Table
-from .models import Canidate
+
+from sqlalchemy.orm import create_session
+
+from .models import Candidate
 
 @app.route('/')
 @app.route('/index')
@@ -13,25 +15,10 @@ def index():
 
     #Canidate = Table('CANDIDATE', db.Model.metadata, autoload = True, autoload_with = db.engine)
 
-    print Canidate.name
-    print Canidate.columns
-    print Canidate.c['Lname']
+    session = create_session(bind = db.engine)
 
+    canidates = session.query(Candidate).all()
 
-
-    user = {'nickname': 'Aidan'}
-
-    posts = [ # fake array of presidents
-        {
-            'author' : {'nickname' : 'a' },
-            'body': 'My last name is a'
-        },
-        {
-                    'author' : {'nickname' : 'Bill'},
-                    'body': 'My first name is b'
-        }
-    ]
     return render_template('index.html',
                             title='Home',
-                            user = user,
-                            posts = posts)
+                            canidates = canidates)

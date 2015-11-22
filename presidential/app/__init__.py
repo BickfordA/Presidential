@@ -8,4 +8,4 @@ db = SQLAlchemy(app)
 
 
 #put this at the end to avoid circular references
-from app import  models, views
+from app import  views, models
