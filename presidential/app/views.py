@@ -23,6 +23,5 @@ def index():
                             title='Home',
                             canidates = canidates)
 
-@app.route('/canidate', methods=['GET', 'POST'])
-def candidatePage():
-    
+#@app.route('/canidate', methods=['GET', 'POST'])
+#def candidatePage():

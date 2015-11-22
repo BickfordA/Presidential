@@ -1,15 +1,12 @@
-<html>
-  <head>
-    {% if title %}
-    <title>{{ title }} - microblog</title>
-    {% else %}
-    <title>Welcome to microblog</title>
-    {% endif %}
-  </head>
-  <body>
-    <h1>Hi, {{ canidates }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ canidates[1][1] }} says: <b>{{ canidates[1][2] }}</b></p></div>
-    {% endfor %}
-  </body>
-</html>
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+  <h1>Hello, Bootstrap</h1>
+{% endblock %}
