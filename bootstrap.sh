@@ -77,3 +77,4 @@ flask/bin/pip install coverage
 flask/bin/pip install watchdog
 flask/bin/pip install mysql-python
 flask/bin/pip install pymysql
+flask/bin/pip install flask-bootstrap

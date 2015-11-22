@@ -10,6 +10,8 @@
 *.csv
 *.sql
 
+
+/presidential/build
 /data
 curated_data/
 data/PRESIDENTIAL.sql

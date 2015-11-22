@@ -17,8 +17,12 @@ def index():
 
     session = create_session(bind = db.engine)
 
-    canidates = session.query(Candidate).all()
+    canidates = session.query(Candidate.Fname).all()
 
     return render_template('index.html',
                             title='Home',
                             canidates = canidates)
+
+@app.route('/canidate', methods=['GET', 'POST'])
+def candidatePage():
+    
