@@ -1,12 +1,16 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}This is an example page{% endblock %}
-
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-  <!-- ... -->
-</div>
-{% endblock %}
-
-{% block content %}
-  <h1>Hello, Bootstrap</h1>
-{% endblock %}
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - microblog</title>
+    {% else %}
+    <title>Welcome to microblog</title>
+    {% endif %}
+  </head>
+  <body>
+    <h1>Hi, Visitor!</h1>
+    {% for candidate in candidates %}
+    <div><p>Check out : <a href={{url_for('candidatePage', canId=candidate[0])}}><b>{{ candidate[1] }}</b>
+      </a></p></div>
+    {% endfor %}
+  </body>
+</html>

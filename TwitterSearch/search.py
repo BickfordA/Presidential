@@ -16,10 +16,10 @@ from urllib import unquote
 # on Twitter's OAuth implementation.
 
 
-CONSUMER_KEY = 'Zhcv44JIjKxrlYizLYPdBoqZH'
-CONSUMER_SECRET ='yaHAd63yirgKcjI74hLEqpF50AXrc7e9nOhmgRhU4fNDHHjuyW'
-OAUTH_TOKEN = '3578113992-NYWS6cfhSFF1HpODS3EaMNRegy4XwRosWFQ3Lg2'
-OAUTH_TOKEN_SECRET = 'vnMJOd7j8haxqFTWfGi0zTcMD6yyiIZfyNNxvZHja3kMx'
+CONSUMER_KEY = ''
+CONSUMER_SECRET =''
+OAUTH_TOKEN = ''
+OAUTH_TOKEN_SECRET = ''
 
 
 auth = twitter.oauth.OAuth(OAUTH_TOKEN, OAUTH_TOKEN_SECRET,

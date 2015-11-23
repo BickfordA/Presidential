@@ -17,11 +17,30 @@ def index():
 
     session = create_session(bind = db.engine)
 
-    canidates = session.query(Candidate.Fname).all()
+    candidates = session.query(Candidate.Candidate_id, Candidate.Fname, Candidate.Lname).all()
+
+    parsed = []
+    for can in candidates:
+        pc =[]
+        pc.append(can[0])
+        pc.append(str(can[1].encode('ascii', 'ignore') + " " + can[2].encode('ascii', 'ignore')))
+        parsed.append(pc)
+
+    'Some String'.encode('ascii', 'ignore')
 
     return render_template('index.html',
                             title='Home',
-                            canidates = canidates)
+                            candidates = candidates)
 
-#@app.route('/canidate', methods=['GET', 'POST'])
-#def candidatePage():
+@app.route('/candidatePage/<canId>')
+def candidatePage(canId):
+
+    print canId
+
+    canInfo = ""
+    candidate_name = "test"
+
+    return render_template('candidate.html',
+                            title = candidate_name,
+                            canInfo = canInfo
+                            )
