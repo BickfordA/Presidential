@@ -1,10 +1,7 @@
 from flask import render_template
 from app import app
-from app import db
 
-from sqlalchemy.orm import create_session
-
-from .models import Candidate
+import sqlfunctions
 
 @app.route('/')
 @app.route('/index')
@@ -15,22 +12,13 @@ def index():
 
     #Canidate = Table('CANDIDATE', db.Model.metadata, autoload = True, autoload_with = db.engine)
 
-    session = create_session(bind = db.engine)
+    session = sqlfunctions.newSession()
 
-    candidates = session.query(Candidate.Candidate_id, Candidate.Fname, Candidate.Lname).all()
-
-    parsed = []
-    for can in candidates:
-        pc =[]
-        pc.append(can[0])
-        pc.append(str(can[1].encode('ascii', 'ignore') + " " + can[2].encode('ascii', 'ignore')))
-        parsed.append(pc)
-
-    'Some String'.encode('ascii', 'ignore')
+    cans = sqlfunctions.candidateNames(session)
 
     return render_template('index.html',
                             title='Home',
-                            candidates = candidates)
+                            candidates = cans)
 
 @app.route('/candidatePage/<canId>')
 def candidatePage(canId):
