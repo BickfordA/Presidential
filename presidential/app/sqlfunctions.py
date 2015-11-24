@@ -1,5 +1,6 @@
 from sqlalchemy.orm import create_session
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 
 from app import db
 
@@ -21,3 +22,8 @@ def candidateNames(session):
         parsed.append(pc)
 
     return parsed
+
+
+def canidateGoogleTrend(canId):
+    trendData = (session.query(Google_trend.Count,  Google_trend.Week).filter(Google_trend.Candidate_id == canId))
+                            .order_by((Google_trend.Week)).all()
