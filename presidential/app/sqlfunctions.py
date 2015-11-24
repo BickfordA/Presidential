@@ -6,6 +6,7 @@ from app import db
 
 import models
 
+#add the model names here to make access a little easier
 Candidate = models.Candidate
 Google_trend = models.Google_trend
 Location = models.Location
