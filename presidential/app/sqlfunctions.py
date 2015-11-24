@@ -7,6 +7,7 @@ from app import db
 import models
 
 Candidate = models.Candidate
+Google_trend = models.Google_trend
 
 def newSession():
     return create_session(bind = db.engine);
@@ -24,6 +25,17 @@ def candidateNames(session):
     return parsed
 
 
-def canidateGoogleTrend(canId):
-    trendData = (session.query(Google_trend.Count,  Google_trend.Week).filter(Google_trend.Candidate_id == canId))
-                            .order_by((Google_trend.Week)).all()
+def canidateGoogleTrend(canId, session):
+    q = session.query(Google_trend.Count,  Google_trend.Week).filter(Google_trend.Candidate_id == canId)
+    q = q.order_by((Google_trend.Week))
+
+    parsed = []
+    for count in q.all():
+        if count[0] is not None:
+            parsed.append(count[0])
+
+    return parsed
+
+
+def candidate_name(canId, session):
+    return "Canidate " + str(canId)

@@ -2,6 +2,7 @@ from flask import render_template
 from app import app
 
 import sqlfunctions
+import plot
 
 import plotly.plotly as py
 py.sign_in('db_graph', 'h0px51kava')
@@ -23,27 +24,16 @@ def index():
                             title='Home',
                             candidates = cans)
 
-							
+
 @app.route('/candidatePage/<canId>')
 def candidatePage(canId):
-    #Test Graph
-    response = py.plot({
-		"data": [{"x":[1, 2, 3],
-						"y":[4, 2, 5]
-			}], 
-			"layout": {
-				"title": "hello world"
-			}
-		}, filename='hello world',
-			privacy='public')
-    
-    #url = "https://plot.ly/~db_graph/19.embed"
-    url = response + ".embed"
 
-    print canId
+    session = sqlfunctions.newSession()
 
     canInfo = ""
-    candidate_name = "test"
+    candidate_name = sqlfunctions.candidate_name(canId, session)
+
+    url = plot.linePlot(py, sqlfunctions.canidateGoogleTrend(canId, session), candidate_name)
 
     return render_template('candidate.html',
                             title = candidate_name,

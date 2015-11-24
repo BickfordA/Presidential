@@ -10,7 +10,7 @@ def linePlot(py, dataX, name):
 
     yValues = []
     for i in range (0 , max):
-        vValues.append(i)
+        yValues.append(i)
 
     #Test Graph
     response = py.plot({
