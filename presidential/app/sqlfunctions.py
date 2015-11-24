@@ -8,6 +8,7 @@ import models
 
 Candidate = models.Candidate
 Google_trend = models.Google_trend
+Location = models.Location
 
 def newSession():
     return create_session(bind = db.engine);
@@ -37,5 +38,34 @@ def canidateGoogleTrend(canId, session):
     return parsed
 
 
-def candidate_name(canId, session):
-    return "Canidate " + str(canId)
+def candidateName(canId, session):
+    q = session.query(Candidate.Fname, Candidate.Lname).filter(Candidate.Candidate_id == canId)
+    #get the first entry
+    names = q.first()
+    #join the first
+    return " ".join(names);
+
+def candidateInfo(canId, session):
+    q = session.query(Candidate.Fname, \
+                    Candidate.Lname,\
+                     Candidate.Party,\
+                      Candidate.Bdate,\
+                       Location.City,\
+                        Location.State,\
+                         Location.Population).join(Location)
+
+
+
+    q = q.filter(Candidate.Candidate_id == canId)
+    values = q.first();
+
+    names = ['Fname', 'Lname', 'Party', "Birthday", "City", "State", "Population"]
+
+    joinedInfo =  []
+    for v in range( 0 , len(values)) :
+        att = []
+        att.append(names[v])
+        att.append(values[v])
+        joinedInfo.append(att)
+
+    return joinedInfo

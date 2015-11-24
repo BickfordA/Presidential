@@ -30,13 +30,19 @@ def candidatePage(canId):
 
     session = sqlfunctions.newSession()
 
-    canInfo = ""
-    candidate_name = sqlfunctions.candidate_name(canId, session)
+    #get the canidate info for the table
+    canInfo = sqlfunctions.candidateInfo(canId, session)
 
+    #get the canidate name
+    candidate_name = sqlfunctions.candidateName(canId, session)
+
+    #get the google trends
     url = plot.linePlot(py, sqlfunctions.canidateGoogleTrend(canId, session), candidate_name)
 
     return render_template('candidate.html',
                             title = candidate_name,
+                            name = candidate_name,
                             canInfo = canInfo,
-                            graph = url
+                            graph = url,
+                            candidateInfo = canInfo
                             )

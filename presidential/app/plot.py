@@ -14,11 +14,11 @@ def linePlot(py, dataX, name):
 
     #Test Graph
     response = py.plot({
-    	"data": [{"x":dataX,
-    					"y":yValues
+    	"data": [{"x":yValues,
+    					"y":dataX
     		}],
     		"layout": {
-    			"title": "hello world"
+    			"title": name
     		}
     	}, filename= (name + 'line_plot'),
     		privacy='public')
