@@ -1,27 +1,20 @@
-<html>
-  <head>
-    {% if title %}
-    <title>{{ title }} - microblog</title>
-    {% else %}
-    <title>Welcome to microblog</title>
-    {% endif %}
-  </head>
-  <body>
-  <h1>  {{ title }} </h1>
-  <h2> Google Trend Data <h2>
-  <p>
-  <iframe width=750 height=500 frameborder="0" seamless="seamless" scrolling="no" src={{graph}}> </iframe>
-  <p>
-  <h2> The Candidate Info <h2>
-  <p>
-    <table border="1">
-      {% for att in candidateInfo%}
-        <tr>
-        <td>{{att[0]}}</td>
-        <td>{{att[1]}}</td>
-        </tr
-      {% endfor %}
-    </table>
-  </p>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>  {{ title }} </h1>
+<h2> Google Trend Data <h2>
+<p>
+<iframe width=750 height=500 frameborder="0" seamless="seamless" scrolling="no" src={{graph}}> </iframe>
+<p>
+<h2> The Candidate Info <h2>
+<p>
+  <table border="1">
+    {% for att in candidateInfo%}
+      <tr>
+      <td>{{att[0]}}</td>
+      <td>{{att[1]}}</td>
+      </tr
+    {% endfor %}
+  </table>
+</p>
+{% endblock %}

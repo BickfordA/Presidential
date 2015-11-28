@@ -44,9 +44,6 @@ Google_trend = Presidential.classes.GOOGLE_TREND
 #http://docs.sqlalchemy.org/en/rel_0_9/orm/extensions/automap.html
 
 
-
-
-
 #class Foo(Base):
 #    __table__ = Base.metadata.tables['foos']
 

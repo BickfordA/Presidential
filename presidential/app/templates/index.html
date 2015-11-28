@@ -1,16 +1,12 @@
-<html>
-  <head>
-    {% if title %}
-    <title>{{ title }} - microblog</title>
-    {% else %}
-    <title>Welcome to microblog</title>
-    {% endif %}
-  </head>
-  <body>
-    <h1>Hi, Visitor!</h1>
-    {% for candidate in candidates %}
-    <div><p>Check out : <a href={{url_for('candidatePage', canId=candidate[0])}}><b>{{ candidate[1] }}</b>
-      </a></p></div>
-    {% endfor %}
-  </body>
-</html>
+{% extends "base.html" %}
+{% block title %}Home Pagea{% endblock %}
+
+
+{% block content%}
+
+{% for candidate in candidates %}
+<div><p>Check out : <a href={{url_for('candidatePage', canId=candidate[0])}}><b>{{ candidate[1] }}</b>
+  </a></p></div>
+{% endfor %}
+
+{% endblock %}
