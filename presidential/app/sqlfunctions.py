@@ -62,7 +62,7 @@ def canidateGoogleTrendYTD(canId, session):
     
     
 def canidateOpinionPollYTD(canId, session):
-    q = session.query(Opinion_poll.Month,  Opinion_poll.Standing, Opinion_poll.Poll_date).filter(Opinion_poll.Can_id == canId, Opinion_poll.Source == 'Public Policy Polling')
+    q = session.query(Opinion_poll.Month,  Opinion_poll.Standing, Opinion_poll.Poll_date).filter(Opinion_poll.Can_id == canId)
     q = q.order_by(Opinion_poll.Poll_date)
     
     parsed = []
@@ -70,11 +70,10 @@ def canidateOpinionPollYTD(canId, session):
     sum = 0
     
     for count in q.all():
-        if count[0] is not None:
-            parsed.append(count[0])
+        if count[1] is not None:
+            parsed.append(count[1])
         else:
             parsed.append("None")
-        
 
     return parsed
 
