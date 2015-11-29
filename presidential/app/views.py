@@ -4,18 +4,9 @@ from app import app
 import sqlfunctions
 import plot
 
-import plotly.plotly as py
-import plotly.graph_objs as go
-py.sign_in('db_graph', 'h0px51kava')
-
-
 @app.route('/')
 @app.route('/index')
 def index():
-    #can = Canidate.query.all()
-    #print can
-
-    #Canidate = Table('CANDIDATE', db.Model.metadata, autoload = True, autoload_with = db.engine)
 
     session = sqlfunctions.newSession()
 
@@ -38,7 +29,7 @@ def candidatePage(canId):
     candidate_name = sqlfunctions.candidateName(canId, session)
 
     #get the google trends
-    url = plot.linePlot(py, sqlfunctions.canidateGoogleTrend(canId, session), candidate_name)
+    url = plot.linePlot(sqlfunctions.canidateGoogleTrend(canId, session), candidate_name, "Google Trends")
 
     return render_template('candidate.html',
                             title = candidate_name,
