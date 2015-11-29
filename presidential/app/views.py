@@ -34,7 +34,8 @@ def candidatePage(canId):
     candidate_name = sql.candidateName(canId, session)
 
     #get the google trends
-    url = plot.linePlot(sql.canidateGoogleTrend(canId, session), candidate_name, "Google Trends")
+    url = ""
+    #url = plot.linePlot(sql.canidateGoogleTrend(canId, session), candidate_name, "Google Trends")
 
     #cadidate top state contributers
     contrib = sql.candidateTopContributionState(canId, session)

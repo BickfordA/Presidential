@@ -18,12 +18,15 @@ Litest Blue
 
 */
 
-
+#MainContent{
+  width: 80%;
+  margin: 0 auto;
+}
 
 #InfoTable{
   width: 80%;
   border-collapse: collapse;
-  float: center;
+  margin: 0 auto;
 }
 
 #InfoTable td, #InfoTable th {
