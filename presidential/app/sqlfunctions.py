@@ -73,8 +73,8 @@ def candidateInfo(canId, session):
 
 def candidateTopContributionState(canId, session):
 
-    results = session.execute("""SELECT Fname, Lname, `Home State`, `Home State Count`, `Home State Amount`, `Top State`,
-                                `Top Count`, `Top Amount`
+    result = session.execute("""SELECT Fname, Lname, `Home State`, `Home State Count`, `Home State Amount`, `Top State`,
+                                `Top State Count`, `Top State Amount`
                                 FROM
                                 (
                                 	#Select the home state values
@@ -98,8 +98,8 @@ def candidateTopContributionState(canId, session):
                                 JOIN
                                 (
                                 	# Top donor state for each candidate
-                                	SELECT A.Candidate_id, A.State AS "Top State", A.Count AS "Top Count",
-                                    A.Amount as "Top Amount"
+                                	SELECT A.Candidate_id, A.State AS "Top State", A.Count AS "Top State Count",
+                                    A.Amount as "Top State Amount"
                                     From
                                     (
                                         SELECT Candidate_id, State, COUNT(*) AS "Count", SUM(Amount) AS "Amount"
@@ -116,6 +116,15 @@ def candidateTopContributionState(canId, session):
                                 	WHERE B.Amount is NULL
                                 ) L
                                 ON K.Candidate_id = L.Candidate_id\
-                                WHERE K.Candidate_id = :canId""", {'canId': canId}).fetchall()
+                                WHERE K.Candidate_id = :canId""", {'canId': canId})
 
-    return results;
+    row = result.fetchone();
+    retVal = {"Home State" : row["Home State"],
+            "Home State Count" : row["Home State Count"],
+            "Home State Amount": row["Home State Amount"],
+            "Top State" : row["Top State"],
+            "Top State Count" : row["Top State Count"],
+            "Top State Amount" : row["Top State Amount"]
+            };
+
+    return retVal;
