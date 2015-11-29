@@ -1,0 +1,46 @@
+/*
+Colors
+Red
+#CE0000
+
+Blue
+#000063
+
+Light Blue
+#5A79A5
+
+Lighter Blue
+#9CAAC6
+
+
+Litest Blue
+#DEE7EF
+
+*/
+
+
+
+#InfoTable{
+  width: 80%;
+  border-collapse: collapse;
+  float: center;
+}
+
+#InfoTable td, #InfoTable th {
+    font-size: 1em;
+    border: 1px solid #000063;
+    padding: 3px 7px 2px 7px;
+}
+
+#InfoTable th {
+    font-size: 1.1em;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    background-color: #DEE7EF;
+    color: #000063;
+}
+
+#InfoTable tr:nth-child(even) {
+    background-color: #9CAAC6;
+}

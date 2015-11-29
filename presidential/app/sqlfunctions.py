@@ -70,3 +70,52 @@ def candidateInfo(canId, session):
         joinedInfo.append(att)
 
     return joinedInfo
+
+def candidateTopContributionState(canId, session):
+
+    results = session.execute("""SELECT Fname, Lname, `Home State`, `Home State Count`, `Home State Amount`, `Top State`,
+                                `Top Count`, `Top Amount`
+                                FROM
+                                (
+                                	#Select the home state values
+                                	SELECT H.Candidate_id,Fname, Lname, H.State as "Home State",
+                                    Count as "Home State Count", Amount as "Home State Amount"
+                                    from (
+                                	#find the state and candidate amounts
+                                	SELECT Candidate_id, State, COUNT(*) AS "Count", SUM(Amount) AS "Amount"
+                                    from CAMPAIGN_CONTRIBUTION
+                                    GROUP BY Candidate_id, State
+                                	) H
+                                JOIN
+                                	(
+                                	SELECT CANDIDATE.Candidate_id, State, Fname, Lname
+                                	FROM
+                                	CANDIDATE JOIN LOCATION ON CANDIDATE.Hometown = LOCATION.Location_id
+                                	) J
+                                		ON J.State = H.State
+                                	WHERE J.`Candidate_id` = H.`Candidate_id`
+                                ) K
+                                JOIN
+                                (
+                                	# Top donor state for each candidate
+                                	SELECT A.Candidate_id, A.State AS "Top State", A.Count AS "Top Count",
+                                    A.Amount as "Top Amount"
+                                    From
+                                    (
+                                        SELECT Candidate_id, State, COUNT(*) AS "Count", SUM(Amount) AS "Amount"
+                                        from CAMPAIGN_CONTRIBUTION
+                                        GROUP BY Candidate_id, State
+                                    ) as A
+                                	LEFT JOIN
+                                    (
+                                        SELECT Candidate_id, State, COUNT(*) AS "Count", SUM(Amount) AS "Amount"
+                                        FROM CAMPAIGN_CONTRIBUTION GROUP BY Candidate_id, State
+                                    ) as B
+                                		on A.Candidate_id = B.Candidate_id
+                                		AND A.Amount < B.Amount
+                                	WHERE B.Amount is NULL
+                                ) L
+                                ON K.Candidate_id = L.Candidate_id\
+                                WHERE K.Candidate_id = :canId""", {'canId': canId}).fetchall()
+
+    return results;

@@ -2,19 +2,31 @@
 
 {% block content %}
 <h1>  {{ title }} </h1>
+<div class="section">
 <h2> Google Trend Data <h2>
-<p>
+
+
 <iframe width=750 height=500 frameborder="0" seamless="seamless" scrolling="no" src={{graph}}> </iframe>
-<p>
-<h2> The Candidate Info <h2>
-<p>
-  <table border="1">
-    {% for att in candidateInfo%}
-      <tr>
+
+
+<h2> The Candidate Info </h2>
+</div>
+
+<DIV class="section">
+<table id="InfoTable">
+  {% for att in candidateInfo %}
+    <tr>
       <td>{{att[0]}}</td>
       <td>{{att[1]}}</td>
-      </tr
-    {% endfor %}
-  </table>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+
+<DIV class="section">
+<h2>Financial </h2>
+<p>
+{{ stateInfo }}
 </p>
+</div>
 {% endblock %}
