@@ -3,6 +3,7 @@ from app import app
 
 import sqlfunctions as sql
 import plot
+import json
 
 
 
@@ -34,8 +35,12 @@ def candidatePage(canId):
     candidate_name = sql.candidateName(canId, session)
 
     #get the google trends
-    url = ""
-    #url = plot.linePlot(sql.canidateGoogleTrend(canId, session), candidate_name, "Google Trends")
+    fig = plot.linePlot(sql.canidateGoogleTrend(canId, session), candidate_name, "Google Trends")
+    
+    graphData = json.dumps(fig['data'])
+    graphLayout = json.dumps(fig['layout'])
+    print(graphData)
+    print(graphLayout)
 
     #cadidate top state contributers
     contrib = sql.candidateTopContributionState(canId, session)
@@ -45,7 +50,8 @@ def candidatePage(canId):
                             name = candidate_name,
                             candidates = cans,
                             canInfo = canInfo,
-                            graph = url,
+                            data = graphData,
+                            layout = graphLayout,
                             candidateInfo = canInfo,
                             stateInfo = contrib
                             )
