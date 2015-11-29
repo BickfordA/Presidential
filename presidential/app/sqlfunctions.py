@@ -10,6 +10,7 @@ import models
 Candidate = models.Candidate
 Google_trend = models.Google_trend
 Location = models.Location
+Net_worth = models.Net_worth
 
 def newSession():
     return create_session(bind = db.engine);
@@ -47,20 +48,20 @@ def candidateName(canId, session):
     return " ".join(names);
 
 def candidateInfo(canId, session):
-    q = session.query(Candidate.Fname, \
-                    Candidate.Lname,\
-                     Candidate.Party,\
-                      Candidate.Bdate,\
-                       Location.City,\
-                        Location.State,\
-                         Location.Population).join(Location)
-
+    q = session.query(Candidate.Fname,
+                        Candidate.Lname,
+                        Candidate.Party,
+                        Candidate.Bdate,
+                        Location.City,
+                        Location.State,
+                        Location.Population,
+                        Net_worth.Amount).join(Location).join(Net_worth)
 
 
     q = q.filter(Candidate.Candidate_id == canId)
     values = q.first();
 
-    names = ['Fname', 'Lname', 'Party', "Birthday", "City", "State", "Population"]
+    names = ['Fname', 'Lname', 'Party', "Birthday", "City", "State", "Population", "Net Worth"]
 
     joinedInfo =  []
     for v in range( 0 , len(values)) :
@@ -119,12 +120,14 @@ def candidateTopContributionState(canId, session):
                                 WHERE K.Candidate_id = :canId""", {'canId': canId})
 
     row = result.fetchone();
-    retVal = {"Home State" : row["Home State"],
-            "Home State Count" : row["Home State Count"],
-            "Home State Amount": row["Home State Amount"],
-            "Top State" : row["Top State"],
-            "Top State Count" : row["Top State Count"],
-            "Top State Amount" : row["Top State Amount"]
-            };
+    retVal = {}
+    if(result.rowcount > 0):
+        retVal = {"Home State" : row["Home State"],
+                "Home State Count" : row["Home State Count"],
+                "Home State Amount": row["Home State Amount"],
+                "Top State" : row["Top State"],
+                "Top State Count" : row["Top State Count"],
+                "Top State Amount" : row["Top State Amount"]
+                }
 
-    return retVal;
+    return retVal
