@@ -10,6 +10,7 @@ import models
 Candidate = models.Candidate
 Google_trend = models.Google_trend
 Location = models.Location
+Opinion_poll = models.Opinion_poll
 
 def newSession():
     return create_session(bind = db.engine);
@@ -35,6 +36,44 @@ def canidateGoogleTrend(canId, session):
     for count in q.all():
         if count[0] is not None:
             parsed.append(count[0])
+
+    return parsed
+    
+    
+def canidateGoogleTrendYTD(canId, session):
+    q = session.query(Google_trend.Count,  Google_trend.Week).filter(Google_trend.Candidate_id == canId)
+    q = q.order_by((Google_trend.Week.desc()))
+    q = q.limit(45)
+
+    parsed = []
+    i = 0
+    sum = 0
+    for count in q.all():
+        i += 1
+        if count[0] is not None:
+            sum += count[0]
+        if i == 4:
+            parsed.append(sum)
+            sum = 0
+            i = 0
+
+    return parsed[::-1]
+    
+    
+def canidateOpinionPollYTD(canId, session):
+    q = session.query(Opinion_poll.Month,  Opinion_poll.Standing, Opinion_poll.Poll_date).filter(Opinion_poll.Can_id == canId, Opinion_poll.Source == 'Public Policy Polling')
+    q = q.order_by(Opinion_poll.Poll_date)
+    
+    parsed = []
+    i = 0
+    sum = 0
+    
+    for count in q.all():
+        if count[0] is not None:
+            parsed.append(count[0])
+        else:
+            parsed.append("None")
+        
 
     return parsed
 

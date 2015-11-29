@@ -35,7 +35,20 @@ def candidatePage(canId):
     candidate_name = sql.candidateName(canId, session)
 
     #get the google trends
-    fig = plot.linePlot(sql.canidateGoogleTrend(canId, session), candidate_name, "Google Trends")
+    #fig = plot.linePlot(sql.canidateGoogleTrend(canId, session), candidate_name, "Google Trends")
+    line1 = dict(
+        data = sql.canidateGoogleTrendYTD(canId, session),
+        name = 'Google Trends',
+        line = dict(color = ('rgb(22,96,167)'), width = 4)
+    )
+    line2 = dict(
+        data = sql.canidateOpinionPollYTD(canId, session),
+        name = 'Opinion Polls',
+        line = dict(color = ('rgb(150, 27, 19)'), width = 4)
+    )
+    
+    lineData = [line1,line2]
+    fig = plot.multiLineTimePlot(lineData, candidate_name, "Performance")
     
     graphData = json.dumps(fig['data'])
     graphLayout = json.dumps(fig['layout'])
