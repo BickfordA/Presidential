@@ -1,25 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="section" id=titleContent>
 <h1>  {{ title }} </h1>
 
 <div id="imageSearch">Loading...</div>
+</div>
 
 <div class="section">
-<h2> Google Trend Data <h2>
+<h2> Google Trends vs. Poll Data <h2>
 
-<div id="tester" style="width:700px;height:400px;"></div>
+<div id="graphTrends"></div>
 <script>
-	TESTER = document.getElementById('tester');
+	TESTER = document.getElementById('graphTrends');
   var data = {{ data|safe }};
   var layout = {{ layout|safe }};
 	Plotly.plot( TESTER, data, layout);
 </script>
+
 </div>
 
 
 <div class="section">
-<h2> The Candidate Info </h2>
+<h2> Candidate Info </h2>
 <table id="InfoTable">
   {% for att in candidateInfo %}
     <tr>
@@ -30,8 +33,9 @@
 </table>
 </div>
 
+
 <div class="section">
-<h2>Financial </h2>
+<h2>State Contributions</h2>
 <p>
 <table id="InfoTable">
     <tr>
@@ -46,5 +50,24 @@
     </tr>
 </table>
 </p>
+</div>
+
+<div class="section">
+<h2>Top Contributing Occupation</h2>
+<p>
+<table id="InfoTable">
+	<tr>
+	{% for field in topContrib.keys() %}
+		<td>{{field}}</td>
+	{% endfor %}
+	</tr>
+	<tr>
+	{% for data in topContrib.values() %}
+		<td>{{data}}</td>
+	{% endfor %}
+	</tr>
+</table>
+</p>
+
 </div>
 {% endblock %}

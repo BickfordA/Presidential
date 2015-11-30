@@ -46,12 +46,16 @@ def candidatePage(canId):
         name = 'Opinion Polls',
         line = dict(color = ('rgb(150, 27, 19)'), width = 4)
     )
-    
+
     #package them up into one graph
     lineData = [line1,line2]
-    fig = plot.multiLineTimePlot(lineData, candidate_name, "Performance")
+    fig = plot.multiLineTimePlot(lineData, "" , "Performance")
     graphData = json.dumps(fig['data'])
     graphLayout = json.dumps(fig['layout'])
+
+
+    #top contributer occupation
+    topContrib = sql.TopContribOccupations(canId, session)
 
     #cadidate top state contributers
     contrib = sql.candidateTopContributionState(canId, session)
@@ -64,5 +68,6 @@ def candidatePage(canId):
                             data = graphData,
                             layout = graphLayout,
                             candidateInfo = canInfo,
-                            stateInfo = contrib
+                            stateInfo = contrib,
+                            topContrib = topContrib
                             )

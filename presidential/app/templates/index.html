@@ -4,9 +4,22 @@
 
 {% block content%}
 
-{% for candidate in candidates %}
-<div><p>Check out : <a href={{url_for('candidatePage', canId=candidate[0])}}><b>{{ candidate[1] }}</b>
-  </a></p></div>
-{% endfor %}
+
+
+<div style="width: 100%; overflow: hidden;">
+    <div style="float: left;">
+    {% for candidate in candidates %}
+    <p>Check out : <a href={{url_for('candidatePage', canId=candidate[0])}}><b>{{ candidate[1] }}</b>
+    </a></p>
+    {% endfor %}
+    </div>
+    <div style="margin-left: 620px;"> <img src='/static/img/flag.png' height="620px" width= "620px" align="right"> </div>
+</div>
+
+
+
+
+
+
 
 {% endblock %}

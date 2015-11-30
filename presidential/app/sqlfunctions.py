@@ -39,8 +39,8 @@ def canidateGoogleTrend(canId, session):
             parsed.append(count[0])
 
     return parsed
-    
-    
+
+
 def canidateGoogleTrendYTD(canId, session):
     q = session.query(Google_trend.Count,  Google_trend.Week).filter(Google_trend.Candidate_id == canId)
     q = q.order_by((Google_trend.Week.desc()))
@@ -59,16 +59,16 @@ def canidateGoogleTrendYTD(canId, session):
             i = 0
 
     return parsed[::-1]
-    
-    
+
+
 def canidateOpinionPollYTD(canId, session):
     q = session.query(Opinion_poll.Month,  Opinion_poll.Standing, Opinion_poll.Poll_date).filter(Opinion_poll.Can_id == canId)
     q = q.order_by(Opinion_poll.Poll_date)
-    
+
     parsed = []
     i = 0
     sum = 0
-    
+
     for count in q.all():
         if count[1] is not None:
             parsed.append(count[1])
@@ -157,15 +157,52 @@ def candidateTopContributionState(canId, session):
                                 ON K.Candidate_id = L.Candidate_id\
                                 WHERE K.Candidate_id = :canId""", {'canId': canId})
 
-    row = result.fetchone();
+
     retVal = {}
     if(result.rowcount > 0):
+        row = result.fetchone();
         retVal = {"Home State" : row["Home State"],
                 "Home State Count" : row["Home State Count"],
                 "Home State Amount": row["Home State Amount"],
                 "Top State" : row["Top State"],
                 "Top State Count" : row["Top State Count"],
                 "Top State Amount" : row["Top State Amount"]
+                }
+
+    return retVal
+
+def TopContribOccupations(canId, session):
+    result = session.execute("""
+                        SELECT o.*
+                        FROM (
+                            SELECT a.Candidate_id, Fname, Lname, Donor_occupation, SUM(Amount) as SUM, count(*) as NUM
+                            FROM
+                            (select * from CAMPAIGN_CONTRIBUTION where Candidate_id = :canId) a
+                            JOIN
+                            (select * from CANDIDATE where Candidate_id = :canId) b
+                            ON a.Candidate_id=b.Candidate_id
+                            GROUP BY Candidate_id, Donor_occupation
+                        ) AS o
+                        LEFT JOIN (
+                            SELECT b.Candidate_id, Fname, Lname, Donor_occupation, SUM(Amount) as SUM, count(*) as NUM
+                            FROM
+                            (select * from CAMPAIGN_CONTRIBUTION where Candidate_id = :canId) a
+                            JOIN
+                            (select * from CANDIDATE where Candidate_id = :canId) b
+                            ON a.Candidate_id=b.Candidate_id
+                            GROUP BY Candidate_id, Donor_occupation
+                        ) AS b
+                        ON (o.Candidate_id=b.candidate_id) AND (o.SUM < b.SUM)
+                        WHERE b.SUM is NULL""", {'canId': canId})
+
+    retVal = {}
+    if(result.rowcount > 0):
+        row = result.fetchone();
+
+        retVal = {
+                "Occupation": row["Donor_occupation"],
+                "Total Contributers" : row["NUM"],
+                "Total Amount" : row["SUM"]
                 }
 
     return retVal

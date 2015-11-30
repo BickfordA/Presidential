@@ -34,6 +34,9 @@
     					 // For each result write it's title and image to the screen
     					 var result = results[i];
     					 var imgContainer = document.createElement('div');
+               imgContainer.setAttribute("margin", "0 auto");
+               imgContainer.setAttribute("align", "center");
+
     					 var title = document.createElement('div');
 
     					 // We use titleNoFormatting so that no HTML tags are left in the
@@ -41,6 +44,8 @@
     					 title.innerHTML = result.titleNoFormatting;
     					 var newImg = document.createElement('img');
                newImg.style.maxHeight = "600px";
+               newImg.setAttribute("margin", "0 auto");
+               newImg.setAttribute("align", "center");
                //newImg.width = 150;
 
     					 // There is also a result.url property which has the escaped version
@@ -115,6 +120,7 @@
     </nav>
     {% endblock %}
 
+    <div id="BackContent">
     <div id="MainContent">
     {% block content %}
 
@@ -122,7 +128,8 @@
 
     {% endblock %}
 
-    <div>
+    </div>
+    </div>
   </body>
 
   </html>

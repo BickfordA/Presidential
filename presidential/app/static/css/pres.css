@@ -17,11 +17,39 @@ Litest Blue
 #DEE7EF
 
 */
+#indexImage{
+  float: right
+}
 
 #MainContent{
   width: 80%;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  border-radius: 25px;
+  border: 2px solid #000063;
+  padding: 20px;
+  background-color: #FFFFFF;
 }
+
+body{
+  background-color: #DEE7EF;
+}
+/*
+#BackContent{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background-image: url('/static/img/flag.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.7;
+}
+*/
 
 #InfoTable{
   width: 80%;
@@ -49,5 +77,23 @@ Litest Blue
 }
 
 #imageSearch{
+  margin: 0 auto;
+}
 
+#graphTrends{
+  margin: 0 auto;
+  width: 90%;
+}
+
+#section{
+  margin-top: 100px;
+  padding-top: 100px;
+}
+
+#titleContent{
+  text-align: center;
+}
+
+h2{
+  text-align: center;
 }

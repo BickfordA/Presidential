@@ -1,6 +1,7 @@
 
 def linePlot(dataY, graphName, axisLabel):
     #find the range of the y values
+    graphName = ""
     max = 0;
 
     for point in dataY:
@@ -10,7 +11,7 @@ def linePlot(dataY, graphName, axisLabel):
     xValues = []
     for i in range (0 , max):
         xValues.append(i)
-    
+
     trace = dict(
         x = xValues,
         y = dataY,
@@ -19,17 +20,17 @@ def linePlot(dataY, graphName, axisLabel):
         line = dict(color = ('rgb(22,96,167)'), width = 4
         )
     )
-    
+
     data = [trace]
-    
+
     layout = dict(
-        title = graphName,
+        title = "",
         xaxis = dict(title = 'Number'),
         yaxis = dict(title = axisLabel)
     )
-    
+
     fig = dict(data = data, layout = layout)
-    
+
     return fig
 
 
@@ -41,9 +42,9 @@ def linePlot(dataY, graphName, axisLabel):
 def multiLineTimePlot(lineData, graphName, axisLabel):
     month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
          'August', 'September', 'October', 'November', 'December']
-         
+
     data = []
-         
+
     for ld in lineData:
         trace = dict(
             x = month,
@@ -52,13 +53,13 @@ def multiLineTimePlot(lineData, graphName, axisLabel):
             line = ld['line']
         )
         data.append(trace)
-        
+
     layout = dict(
         title = graphName,
         xaxis = dict(title = 'Month'),
         yaxis = dict(title = axisLabel)
     )
-    
+
     fig = dict(data = data, layout = layout)
-    
+
     return fig
